@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0884e292d52e2214fb754262937607f2, type: 3}
+  m_Name: TrainDataSet
+  m_EditorClassIdentifier: 
+  trainDatas:
+  - TrainType: TEST
+    Model: {fileID: 2065034465502303702, guid: 65ea0dfe94f84d943bf3594cd85453b2, type: 3}
+    LengthBetweenBogies: 13.8
+    HeadFromBogie: 2.95
+    TailFromBogie: 2.85
+  - TrainType: TEST2
+    Model: {fileID: 2065034465502303702, guid: 153078a88048bfe42be418bc7bb2bbea, type: 3}
+    LengthBetweenBogies: 13.8
+    HeadFromBogie: 2.95
+    TailFromBogie: 2.85
+  - TrainType: "\uAE30\uAD00\uCC28"
+    Model: {fileID: 2065034465502303702, guid: 153078a88048bfe42be418bc7bb2bbea, type: 3}
+    LengthBetweenBogies: 13.8
+    HeadFromBogie: 2.95
+    TailFromBogie: 2.85
+  - TrainType: "\uD654\uCC28"
+    Model: {fileID: 2065034465502303702, guid: 65ea0dfe94f84d943bf3594cd85453b2, type: 3}
+    LengthBetweenBogies: 13.8
+    HeadFromBogie: 2.95
+    TailFromBogie: 2.85

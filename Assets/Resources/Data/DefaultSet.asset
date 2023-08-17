@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8538813f2e53b41ae321aab51c6bd1, type: 3}
+  m_Name: DefaultSet
+  m_EditorClassIdentifier: 
+  MainMixer: {fileID: 24100000, guid: a4a0363a76f7f444d9139cbb61ced6f8, type: 2}
+  Master: {fileID: 24300002, guid: a4a0363a76f7f444d9139cbb61ced6f8, type: 2}
+  BGMMixer: {fileID: 1153375687693861364, guid: a4a0363a76f7f444d9139cbb61ced6f8,
+    type: 2}
+  SFXMixer: {fileID: -2934833849835044995, guid: a4a0363a76f7f444d9139cbb61ced6f8,
+    type: 2}
+  VoiceMixer: {fileID: 7514893520183413526, guid: a4a0363a76f7f444d9139cbb61ced6f8,
+    type: 2}
