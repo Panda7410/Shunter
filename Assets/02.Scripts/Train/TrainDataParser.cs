@@ -105,7 +105,7 @@ public class TrainDataParser : MonoBehaviour
 
         //열차위치 반환
         ActionManager.Instance.AddAction(OrderKind.SET.ToString(), ItemNameGetAllModuleDist, ObjectAction: SendAllVehiclePos);
-        //ItemNameGetModuleDist
+        //ItemNameGetModuleDist 열차 단일위치 반환
         ActionManager.Instance.AddAction(OrderKind.SET.ToString(), ItemNameGetModuleDist, ObjectAction: SendVehiclePos);
 
     }
