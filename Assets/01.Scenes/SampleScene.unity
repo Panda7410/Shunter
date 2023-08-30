@@ -10804,19 +10804,19 @@ MonoBehaviour:
   saveObjPosItemDatas:
   - TargetObj: {fileID: 627769215}
     TargetPos: {x: -0.63, y: 0, z: 1.62}
-    TargetRot: {x: -0, y: -0, z: -0, w: 1}
+    TargetRot: {x: 0.05066914, y: -0.6767671, z: -0.30177623, w: 0.6695895}
     TargetActive: 1
   - TargetObj: {fileID: 1900753237}
     TargetPos: {x: -4.03, y: 0, z: 1.38}
-    TargetRot: {x: -0, y: -0.2887163, z: -0, w: 0.95741475}
+    TargetRot: {x: 0.05066914, y: -0.6767671, z: -0.30177623, w: 0.6695895}
     TargetActive: 1
   - TargetObj: {fileID: 236168328}
     TargetPos: {x: 1.92, y: -1.53, z: -4.76}
-    TargetRot: {x: -0.19118895, y: 0.04804267, z: -0.23892485, w: 0.9508174}
+    TargetRot: {x: 0.05066914, y: -0.6767671, z: -0.30177623, w: 0.6695895}
     TargetActive: 1
   - TargetObj: {fileID: 165214317}
     TargetPos: {x: 0, y: 2.67, z: 1.31}
-    TargetRot: {x: -0.19118895, y: 0.04804267, z: -0.23892485, w: 0.9508174}
+    TargetRot: {x: 0.050669137, y: -0.6767671, z: -0.30177623, w: 0.6695895}
     TargetActive: 1
 --- !u!1 &1362324383
 GameObject:
