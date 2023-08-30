@@ -7,11 +7,12 @@ using Common;
 
 public class MainInitialize : MonoBehaviour
 {
-    const string CheckItemName = "자기진단실시";
+    //const string CheckItemName = "자기진단실시";
 
     void Start()
     {
         NetInit();
+        SceneAdd();
     }
 
     /// <summary>
@@ -22,7 +23,7 @@ public class MainInitialize : MonoBehaviour
         TrainManager.Instance.MsgAction -= NetworkFunc.SendMsg;
         TrainManager.Instance.MsgAction += NetworkFunc.SendMsg;
 
-        ActionManager.Instance.AddAction(OrderKind.SET.ToString(), CheckItemName, ObjectAction: HeartBeat);
+        ActionManager.Instance.AddAction(OrderKind.SET.ToString(), ItemList.CheckItemName, ObjectAction: HeartBeat);
 
 
 
@@ -41,11 +42,20 @@ public class MainInitialize : MonoBehaviour
         //};
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    void SceneAdd()
+    {
+        //우선 라인정보
+        //Managers.SceneChanger.LoadSceneAsyncAdditive("LineInfo");
+    }
+
     void HeartBeat(object obj)
     {
         //string ItemName = "자기진단실시";
         int value = 1;
-        Client.Instance.SendData(CheckItemName, value);
+        Client.Instance.SendData(ItemList.CheckItemName, value);
     }
 
 }

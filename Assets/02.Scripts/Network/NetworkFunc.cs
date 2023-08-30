@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkFunc : MonoBehaviour
+public class NetworkFunc
 {
-    const string ErrorMsgItemName = "영상메시지";
-
     public static void SendMsg(string msg)
     {
-        Client.Instance.SendData(ErrorMsgItemName, msg);
+        Client.Instance.SendData(ItemList.ErrorMsgItemName, msg);
     }
 }

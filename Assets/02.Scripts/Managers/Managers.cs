@@ -11,7 +11,7 @@ public class Managers : MonoBehaviour
 
     InputManager _input = new InputManager();
     ResourceManager _resource = new ResourceManager();
-    //SceneChanger _sceneChanger = new SceneChanger();
+    SceneChanger _sceneChanger = new SceneChanger();
     StatusManager _statusManager = new StatusManager();
     ScForEveObj _scForEveObj;
     SoundManager _soundManager;
@@ -19,7 +19,7 @@ public class Managers : MonoBehaviour
 
     public static InputManager Input { get { return Instance._input; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
-    //public static SceneChanger SceneChanger { get { return Instance._sceneChanger; } }
+    public static SceneChanger SceneChanger { get { return Instance._sceneChanger; } }
     public static Transform ManagerTr { get { return Instance.gameObject.transform; } }
     public static StatusManager StatusManager { get { return Instance._statusManager; } } 
     public static SoundManager SoundManager
