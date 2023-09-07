@@ -21,14 +21,14 @@ public class TrainManager : SimpleSingleton<TrainManager>
         Rail rail;
         if(!RailManager.Instance.AllRails.TryGetValue(railId, out rail))
         {
-            Debug.LogError($"{railId}선로가 존재하지 않아 {moduleId} 를 배치할 수 없습니다.");
+            LogDisplay.LogError($"{railId}선로가 존재하지 않아 {moduleId} 를 배치할 수 없습니다.");
             Instance.MsgAction?.Invoke($"{railId}선로가 존재하지 않아 {moduleId} 를 배치할 수 없습니다.");
             return;
         }
 
         if (AllModules.ContainsKey(moduleId))
         {
-            Debug.LogError($"{moduleId}가 이미 존재합니다.");
+            LogDisplay.LogError($"{moduleId}가 이미 존재합니다.");
             Instance.MsgAction?.Invoke($"{moduleId}가 이미 존재합니다.");
 
             return;
@@ -37,7 +37,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         TrainModule module = CreateModule(trianType, moduleId);
         if (module == null)
         {
-            Debug.Log($"{moduleId} 생성실패.");
+            LogDisplay.Log($"{moduleId} 생성실패.");
             Instance.MsgAction?.Invoke($"{moduleId} 생성실패.");
 
             return;
@@ -52,7 +52,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
             if (AllModules.ContainsValue(module))
                 AllModules.Remove(module.ModuleID);
         };
-        Debug.Log($"{moduleId} 생성을 완료했습니다.");
+        LogDisplay.Log($"{moduleId} 생성을 완료했습니다.");
         Instance.MsgAction?.Invoke($"{moduleId} 생성을 완료했습니다.");
 
     }
@@ -63,7 +63,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         //열차에 포함되어 있는경우.
         if (IsTrainContainModule(moduleId))
         {
-            Debug.LogError($"{moduleId}가 이미 다른열차에 포함되어있어 개별 위치를 지정할 수 없습니다.");
+            LogDisplay.LogError($"{moduleId}가 이미 다른열차에 포함되어있어 개별 위치를 지정할 수 없습니다.");
             Instance.MsgAction?.Invoke($"{moduleId}가 이미 다른열차에 포함되어있어 개별 위치를 지정할 수 없습니다.");
 
             return null;
@@ -71,7 +71,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         //열차에는 없지만 생성된 된경우. 
         else if (AllModules.ContainsKey(moduleId))
         {
-            Debug.LogWarning($"{moduleId}가 이미 생성되어 있습니다. 동작에 주의하세요.");
+            LogDisplay.LogWarning($"{moduleId}가 이미 생성되어 있습니다. 동작에 주의하세요.");
             Instance.MsgAction?.Invoke($"{moduleId}가 이미 생성되어 있습니다. 동작에 주의하세요.");
 
             module = AllModules[moduleId];
@@ -82,7 +82,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
             module = GSSC.TrainDataSet.Instance.CreatTainModule(trianType);
             if (module == null)
             {
-                Debug.LogError($"{trianType}에 해당하는 열차 데이터가 존재하지 않습니다.");
+                LogDisplay.LogError($"{trianType}에 해당하는 열차 데이터가 존재하지 않습니다.");
                 Instance.MsgAction?.Invoke($"{trianType}에 해당하는 열차 데이터가 존재하지 않습니다.");
 
                 return null;
@@ -96,7 +96,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         if (!AllModules.ContainsKey(moduleId))
         {
             Instance.MsgAction?.Invoke($"{moduleId}에 해당하는 차량 데이터가 존재하지 않습니다.");
-            Debug.LogError($"{moduleId}에 해당하는 차량 데이터가 존재하지 않습니다.");
+            LogDisplay.LogError($"{moduleId}에 해당하는 차량 데이터가 존재하지 않습니다.");
             return null;
         }
         return AllModules[moduleId];
@@ -105,19 +105,19 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if(mainModule == null)
         {
-            Debug.LogError($"설정된 모듈이 존재하지 않습니다.");
+            LogDisplay.LogError($"설정된 모듈이 존재하지 않습니다.");
             Instance.MsgAction?.Invoke($"설정된 모듈이 존재하지 않습니다.");
             return null;
         }
         if (AllTrains.ContainsKey(trainId))
         {
-            Debug.LogError($"{trainId} 동일 이름을 지닌 열차가 이미 생성되어 있습니다.");
+            LogDisplay.LogError($"{trainId} 동일 이름을 지닌 열차가 이미 생성되어 있습니다.");
             Instance.MsgAction?.Invoke($"{trainId} 동일 이름을 지닌 열차가 이미 생성되어 있습니다.");
             return null;
         }
         if (IsTrainContainModule(mainModule.ModuleID))
         {
-            Debug.LogError($"{mainModule.ModuleID} 메인차량이 이미 다른 열차에 포함되어 있습니다. ");
+            LogDisplay.LogError($"{mainModule.ModuleID} 메인차량이 이미 다른 열차에 포함되어 있습니다. ");
             Instance.MsgAction?.Invoke($"{mainModule.ModuleID} 메인차량이 이미 다른 열차에 포함되어 있습니다.");
             return null;
         }
@@ -128,7 +128,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         train.SetMainModule(mainModule);
         train.SendMsg += MsgAction;
         AllTrains.Add(trainId, train);
-        Debug.Log($"{trainId} 열차 생성완료");
+        LogDisplay.Log($"{trainId} 열차 생성완료");
         Instance.MsgAction?.Invoke($"{trainId} 열차 생성완료");
 
         return train;
@@ -137,7 +137,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if (!AllModules.ContainsKey(mainModuleID))
         {
-            Debug.LogError($"{mainModuleID}를 지닌 모듈이 존재하지 않습니다. ");
+            LogDisplay.LogError($"{mainModuleID}를 지닌 모듈이 존재하지 않습니다. ");
             Instance.MsgAction?.Invoke($"{mainModuleID}를 지닌 모듈이 존재하지 않습니다.");
             return null;
         }
@@ -154,7 +154,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         (bool isContain, Train train) = GetInstallTrain(trainId);
         if (!isContain)
         {
-            Debug.LogError($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
+            LogDisplay.LogError($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             Instance.MsgAction?.Invoke($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             return;
         }
@@ -165,7 +165,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         (bool isContain, Train train) = GetInstallTrain(trainId);
         if (!isContain)
         {
-            Debug.LogError($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
+            LogDisplay.LogError($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             Instance.MsgAction?.Invoke($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             return;
         }
@@ -177,12 +177,12 @@ public class TrainManager : SimpleSingleton<TrainManager>
         (bool isContain, Train train) = GetInstallTrain(trainId);
         if (!isContain)
         {
-            Debug.LogWarning($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
+            LogDisplay.LogWarning($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             Instance.MsgAction?.Invoke($"{trainId} 에 해당하는 열차가 등록되어 있지 않습니다.");
             return;
         }
         train.BreakTrainCoupling(moduleId);
-        Debug.Log("분리완료.");
+        LogDisplay.Log("분리완료.");
     }
 
 
@@ -190,7 +190,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if(!AllModules.ContainsKey(ModuleId))
         {
-            Debug.LogWarning($"{ModuleId} 가 등록되어있지 않아 모듈을 제거할 수 없습니다.");
+            LogDisplay.LogWarning($"{ModuleId} 가 등록되어있지 않아 모듈을 제거할 수 없습니다.");
             Instance.MsgAction?.Invoke($"{ModuleId} 가 등록되어있지 않아 모듈을 제거할 수 없습니다.");
             return;
         }
@@ -208,7 +208,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if (!AllTrains.ContainsKey(TrainId))
         {
-            Debug.LogWarning($"{TrainId} 가 등록되어있지 않아 열차를 제거할 수 없습니다.");
+            LogDisplay.LogWarning($"{TrainId} 가 등록되어있지 않아 열차를 제거할 수 없습니다.");
             Instance.MsgAction?.Invoke($"{TrainId} 가 등록되어있지 않아 열차를 제거할 수 없습니다.");
             return;
         }
@@ -254,13 +254,13 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if (!AllTrains.ContainsKey(trainId))
         {
-            Debug.LogWarning($"{trainId} 가 현재 등록되어있지 않습니다.");
+            LogDisplay.LogWarning($"{trainId} 가 현재 등록되어있지 않습니다.");
             Instance.MsgAction?.Invoke($"{trainId} 가 현재 등록되어있지 않습니다.");
             return;
         }
         if (!RailManager.Instance.AllRails.ContainsKey(railId))
         {
-            Debug.LogWarning($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
+            LogDisplay.LogWarning($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
             Instance.MsgAction?.Invoke($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
             return;
         }
@@ -271,19 +271,19 @@ public class TrainManager : SimpleSingleton<TrainManager>
     {
         if (!AllModules.ContainsKey(ModuleId))
         {
-            Debug.LogWarning($"{ModuleId} 가 현재 등록되어있지 않습니다.");
+            LogDisplay.LogWarning($"{ModuleId} 가 현재 등록되어있지 않습니다.");
             Instance.MsgAction?.Invoke($"{ModuleId} 가 현재 등록되어있지 않습니다.");
             return;
         }
         if (!RailManager.Instance.AllRails.ContainsKey(railId))
         {
-            Debug.LogWarning($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
+            LogDisplay.LogWarning($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
             Instance.MsgAction?.Invoke($"{railId} 선로가 가 현재 등록되어있지 않습니다.");
             return;
         }
         if(IsTrainContainModule(ModuleId))
         {
-            Debug.LogWarning($"{ModuleId} 가 이미 다른 열차에 포함되어 있습니다.");
+            LogDisplay.LogWarning($"{ModuleId} 가 이미 다른 열차에 포함되어 있습니다.");
             Instance.MsgAction?.Invoke($"{ModuleId} 가 이미 다른 열차에 포함되어 있습니다.");
             return;
         }
@@ -308,7 +308,7 @@ public class TrainManager : SimpleSingleton<TrainManager>
         catch (System.Exception)
         {
 
-            Debug.LogError("열차 설정에 에러가 존재합니다.");
+            LogDisplay.LogError("열차 설정에 에러가 존재합니다.");
             Instance.MsgAction?.Invoke($"열차 설정에 에러가 존재합니다.");
             throw;
         }
@@ -329,4 +329,20 @@ public class TrainManager : SimpleSingleton<TrainManager>
         return (MID, RID, Dist);
     }
 
+    public void DestroyAllTrain()
+    {
+        List<string> keys = AllTrains.Keys.ToList<string>();
+        foreach (var trainID in keys)
+        {
+            DestroyTrain(trainID);
+        }
+    }
+    public void DestroyAllModule()
+    {
+        List<string> keys = AllModules.Keys.ToList<string>();
+        foreach (var ModuleID in keys)
+        {
+            DestroyModule(ModuleID);
+        }
+    }
 }

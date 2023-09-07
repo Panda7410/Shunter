@@ -19,7 +19,8 @@ public class Client : SimpleSingleton<Client>
     [SerializeField]
     private bool isSendAdvise = false;
     RepoarchitectureGSSC tcpClient;
-    private Queue<DataModel> DataEvents = new Queue<DataModel>();
+    private Queue<DataModel> RecvDataEvents = new Queue<DataModel>(); 
+    private Queue<DataModel> SendDataEvents = new Queue<DataModel>();
     private Queue<(string, object)> SendDataQueue = new Queue<(string, object)>();
     object _lock = new object();
 
@@ -47,22 +48,27 @@ public class Client : SimpleSingleton<Client>
         //tcpClient.SendData(test);
     }
 
-    public void SendData(string Name, object value)
+    public void SendData(string Name, object value) // 이 경우  OrderKind.SET 으로만 보낸다.
     {
         SendDataQueue.Enqueue((Name, value));
+        //tcpClient.SendData(model);
+    }
+    public void SendData(DataModel dataModel)
+    {
+        SendDataEvents.Enqueue(dataModel);
         //tcpClient.SendData(model);
     }
 
     private void TcpClient_EventDataArrival(object sender, RepoarchitectureGSSC.RxDataEvent e)
     {
         lock (_lock)
-            DataEvents.Enqueue(e.Message);
+            RecvDataEvents.Enqueue(e.Message);
     }
 
     public void EnqueDataModelOutSide(DataModel dataModel)
     {
         lock (_lock)
-            DataEvents.Enqueue(dataModel);
+            RecvDataEvents.Enqueue(dataModel);
     }
 
     private void TcpClient_EventStatus(object sender, RepoarchitectureGSSC.StatusEvent e)
@@ -71,14 +77,14 @@ public class Client : SimpleSingleton<Client>
         {
             Debug.Log("접속성공");
             if (!isSendAdvise)
-            {
+            {//어드바이스를 한번도하지않았을경우 어드바이스한다. 
                 ADVISEData();
             }
             OnConnect?.Invoke();
         }
         else
         {
-            
+
             Debug.Log("접속종료");
             //try
             //{
@@ -108,14 +114,14 @@ public class Client : SimpleSingleton<Client>
             DataModel data;
             lock (_lock)
             {
-                if (DataEvents.TryDequeue(out data))
+                if (RecvDataEvents.TryDequeue(out data))
                 {
                     foreach (var item in data.Items)
                     {
                         ActionManager.Instance.InvokeAction(data.Order.ToString(), item.Name, ActionObject: item.Value);
-#if UNITY_EDITOR
-                        Debug.Log($"{data.Order} : {item.Name} : {item.Value} - 이벤트 인보크");
-# endif
+//#if UNITY_EDITOR
+                        LogDisplay.Log($"{data.Order} : {item.Name} : {item.Value} - 이벤트 인보크");
+//# endif
                     }
                 }
             }
@@ -138,6 +144,11 @@ public class Client : SimpleSingleton<Client>
                 }
                 tcpClient.SendData(SendData);
             }
+            //데이터 모델형태로 들어온건 바로 요청. 
+            while (SendDataEvents.Count != 0)
+            {
+                tcpClient.SendData(SendDataEvents.Dequeue());
+            }
             //다음프레임까지 대기
             yield return null;
         }
@@ -157,7 +168,7 @@ public class Client : SimpleSingleton<Client>
         //종료
         if (Instance == this)
 #if UNITY_EDITOR
-        Debug.Log("접속 종료 시도");
+            Debug.Log("접속 종료 시도");
 #endif
         {
         this.tcpClient?.Dispose();
@@ -178,7 +189,7 @@ public class Client : SimpleSingleton<Client>
     }
 
     [ContextMenu("강제종료")]
-    void forceDispose()
+    public void forceDispose()
     {
         Debug.Log("강제 접속 종료 시도");
         tcpClient?.Dispose();

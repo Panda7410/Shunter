@@ -54,10 +54,10 @@ public class TrainDataParser : MonoBehaviour
     public const string ItemNameTrainSpeed = "세팅속력";
 
 
-    //모든열차거리
-    public const string ItemNameGetAllModuleDist = "모든열차위치";
+    //모든차량거리
+    public const string ItemNameGetAllModuleDist = "모든차량위치";
 
-    public const string ItemNameGetModuleDist = "열차위치";
+    public const string ItemNameGetModuleDist = "차량위치";
 
     //public const string ItemNameDist = "";
     //public const string ItemNameDist = "";

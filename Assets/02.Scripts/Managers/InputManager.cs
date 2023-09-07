@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,8 +28,8 @@ namespace GsDefaultModule
         public void OnUpdate()
         {
 
-            //if (Input.anyKey && KeyAction != null)
-            //    KeyAction.Invoke();
+            if (Input.anyKey && KeyAction != null)
+                KeyAction.Invoke();
 
             UpdateAction?.Invoke();
 

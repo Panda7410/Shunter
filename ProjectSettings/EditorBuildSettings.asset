@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/LineInfo.unity
     guid: 15941dbabf01dc7438f790fceaa6ce61
+  - enabled: 1
+    path: Assets/01.Scenes/BackGround.unity
+    guid: 15b1b048426ead94fa72141e3c1c8f52
+  - enabled: 1
+    path: Assets/01.Scenes/Play.unity
+    guid: 5a9e834483daeb241a6aec67e0433a77
   m_configObjects: {}
